@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marie-Joe Chehade | Data Analyst & AI Developer</title>
+  <meta name="description" content="Portfolio of Marie-Joe (Jowi) Chehade, Data Analyst and AI Developer based in Lebanon.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a class="logo" href="#top">Jowi.</a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <section class="hero">
+      <p class="eyebrow">Hi, I'm</p>
+      <h1>Marie-Joe Chehade <span>(Jowi)</span></h1>
+      <p class="tagline">Data Analyst &amp; AI Developer building practical tools that turn messy data into useful systems.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my work</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I'm a Computer Science graduate from Antonine University, based in Lebanon. I work at Mednet,
+        a Third Party Administrator (TPA) insurance company, as a Data Analyst and AI Developer,
+        where I build data pipelines and AI-powered tools for healthcare and insurance workflows.
+      </p>
+      <p>
+        Outside of work, I volunteer with the Saint Paul Charity Mission, creating training and
+        session materials for youth groups, and I enjoy teaching and sharing what I learn.
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Data &amp; AI</h3>
+          <ul class="tags">
+            <li>Python</li><li>Data pipelines</li><li>OCR &amp; document extraction</li><li>LLM APIs</li><li>Excel reporting</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Web Development</h3>
+          <ul class="tags">
+            <li>Laravel 10 (PHP)</li><li>React</li><li>MySQL</li><li>HTML / CSS / JS</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Foundations</h3>
+          <ul class="tags">
+            <li>Data structures</li><li>Algorithms</li><li>Computer networks</li><li>Compiler theory</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Medical Admission Form Extraction</h3>
+          <p>A Python pipeline that uses an AI vision API to read Lebanese medical admission forms and output clean, structured Excel files, with checkbox detection, provider extraction and date correction.</p>
+          <ul class="tags"><li>Python</li><li>OCR</li><li>LLM API</li><li>openpyxl</li></ul>
+        </article>
+        <article class="card">
+          <h3>Insurance Management System</h3>
+          <p>A full-stack platform for managing insurance operations, built with a modular architecture of separate lines of business.</p>
+          <ul class="tags"><li>Laravel</li><li>React</li><li>MySQL</li></ul>
+        </article>
+        <article class="card">
+          <h3>Python Training Program</h3>
+          <p>Session content, quizzes and homework systems created for Python training sessions at MDSF Tech Academy.</p>
+          <ul class="tags"><li>Teaching</li><li>Python</li><li>Apps Script</li></ul>
+        </article>
+      </div>
+      <p class="note">More projects coming soon.</p>
+    </section>
+
+    <section id="experience">
+      <h2>Experience &amp; Education</h2>
+      <ol class="timeline">
+        <li>
+          <h3>Data Analyst &amp; AI Developer</h3>
+          <p class="meta">Mednet (TPA Insurance)</p>
+          <p>Building data pipelines, AI extraction tools and reporting for insurance operations.</p>
+        </li>
+        <li>
+          <h3>Trainer &amp; Content Creator</h3>
+          <p class="meta">MDSF Tech Academy</p>
+          <p>Designed training sessions, quizzes and learning materials for professional learners.</p>
+        </li>
+        <li>
+          <h3>Backend Developer (Intern)</h3>
+          <p class="meta">Amedaz S.A.L</p>
+          <p>Backend development work as part of an internship.</p>
+        </li>
+        <li>
+          <h3>IT Intern</h3>
+          <p class="meta">Daher International Food Company</p>
+          <p>IT internship experience in a food industry company.</p>
+        </li>
+        <li>
+          <h3>B.S. in Computer Science</h3>
+          <p class="meta">Antonine University (Université Antonine), Lebanon</p>
+          <p>Certifications from Zaka.ai and Coursera.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Want to work together or just say hi? Reach out.</p>
+      <ul class="links">
+        <li><a href="mailto:your.email@example.com">your.email@example.com</a></li>
+        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Marie-Joe Chehade. Built with plain HTML &amp; CSS.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
