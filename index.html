@@ -1,145 +1,1379 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Marie-Joe Chehade | Data Analyst & AI Developer</title>
-  <meta name="description" content="Portfolio of Marie-Joe (Jowi) Chehade, Data Analyst and AI Developer based in Lebanon.">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marie-Joe Chehade (Jowi) | Data Analyst & AI Developer</title>
+  <meta name="description" content="Animated Portfolio of Marie-Joe (Jowi) Chehade, Data Analyst and AI Developer based in Lebanon.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <header class="nav">
-    <a class="logo" href="#top">Jowi.</a>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bgDark: '#0f1419',
+            surfaceDark: '#171e26',
+            borderDark: '#263140',
+            accentTeal: '#4fd1c5',
+            accentTealDark: '#0f9d8f',
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 5s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --surface: #ffffff;
+      --surface-elevated: #f1f5f9;
+      --border: #e1e7ee;
+      --text: #17202a;
+      --muted: #5d6b7a;
+      --accent: #0f9d8f;
+      --accent-glow: rgba(15, 157, 143, 0.22);
+      --accent-ink: #ffffff;
+    }
+
+    html.dark {
+      --bg: #0f1419;
+      --surface: #171e26;
+      --surface-elevated: #1e2732;
+      --border: #263140;
+      --text: #e6edf3;
+      --muted: #8b98a8;
+      --accent: #4fd1c5;
+      --accent-glow: rgba(79, 209, 197, 0.22);
+      --accent-ink: #06201d;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Neural Canvas Background */
+    #neural-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Glassmorphism & Surface Utilities */
+    .glass-nav {
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .theme-card {
+      background: color-mix(in srgb, var(--surface) 90%, transparent);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px -10px var(--accent-glow);
+    }
+
+    /* Section Header Accent Bar */
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 3.5px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      border-radius: 4px;
+    }
+
+    /* Scan Beam Animation for OCR Demo */
+    @keyframes scanline {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 96%; opacity: 0; }
+    }
+
+    .ocr-scan-beam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), #38bdf8, var(--accent), transparent);
+      box-shadow: 0 0 18px 4px var(--accent);
+      animation: scanline 2.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Data packet animation on hero SVG lines */
+    @keyframes dashFlow {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+
+    .animated-stream {
+      stroke-dasharray: 6 6;
+      animation: dashFlow 1.2s linear infinite;
+    }
+
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Typewriter Cursor */
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: var(--accent);
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 0.9s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+  </style>
+</head>
+<body class="selection:bg-teal-400/20 selection:text-teal-300">
+
+  <!-- Interactive Background Canvas: Neural & Data Nodes -->
+  <canvas id="neural-canvas" aria-hidden="true"></canvas>
+
+  <!-- Sticky Navigation Header -->
+  <header class="glass-nav sticky top-0 z-50 transition-colors">
+    <div class="max-w-5xl mx-auto px-5 py-3.5 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center font-mono font-bold text-sm border transition-all duration-300 group-hover:scale-105"
+             style="background: var(--surface-elevated); border-color: var(--accent); color: var(--accent);">
+          &lt;J/&gt;
+        </div>
+        <span class="font-extrabold text-xl tracking-tight" style="color: var(--text);">
+          Jowi<span style="color: var(--accent);">.</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium" style="color: var(--muted);">
+        <a href="#about" class="hover:text-teal-400 transition-colors">About</a>
+        <a href="#pipeline-demo" class="hover:text-teal-400 transition-colors flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping"></span>
+          AI Lab
+        </a>
+        <a href="#skills" class="hover:text-teal-400 transition-colors">Skills</a>
+        <a href="#projects" class="hover:text-teal-400 transition-colors">Projects</a>
+        <a href="#experience" class="hover:text-teal-400 transition-colors">Experience</a>
+        <a href="#contact" class="hover:text-teal-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Actions: Theme Switcher & Mobile Menu Button -->
+      <div class="flex items-center gap-2.5">
+        <button id="theme-toggle" type="button" aria-label="Toggle color theme"
+                class="p-2.5 rounded-xl border transition-all hover:scale-105 focus:outline-none"
+                style="background: var(--surface); border-color: var(--border); color: var(--text);">
+          <i data-lucide="sun" id="theme-icon-sun" class="w-4 h-4 hidden"></i>
+          <i data-lucide="moon" id="theme-icon-moon" class="w-4 h-4"></i>
+        </button>
+
+        <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu"
+                class="md:hidden p-2.5 rounded-xl border transition-all"
+                style="background: var(--surface); border-color: var(--border); color: var(--text);">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t px-5 py-4 space-y-3 text-sm font-medium"
+         style="background: var(--surface); border-color: var(--border);">
+      <a href="#about" class="block py-1.5 hover:text-teal-400 mobile-link">About</a>
+      <a href="#pipeline-demo" class="block py-1.5 hover:text-teal-400 mobile-link">Interactive AI Pipeline Lab</a>
+      <a href="#skills" class="block py-1.5 hover:text-teal-400 mobile-link">Skills</a>
+      <a href="#projects" class="block py-1.5 hover:text-teal-400 mobile-link">Projects</a>
+      <a href="#experience" class="block py-1.5 hover:text-teal-400 mobile-link">Experience</a>
+      <a href="#contact" class="block py-1.5 hover:text-teal-400 mobile-link">Contact</a>
+    </div>
   </header>
 
-  <main id="top">
+  <!-- Main Content Container -->
+  <main id="top" class="relative z-10 max-w-5xl mx-auto px-5">
 
-    <section class="hero">
-      <p class="eyebrow">Hi, I'm</p>
-      <h1>Marie-Joe Chehade <span>(Jowi)</span></h1>
-      <p class="tagline">Data Analyst &amp; AI Developer building practical tools that turn messy data into useful systems.</p>
-      <div class="cta">
-        <a class="btn primary" href="#projects">See my work</a>
-        <a class="btn" href="#contact">Get in touch</a>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="pt-14 pb-16 md:pt-24 md:pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left Column: Intro & CTAs -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Status Badge -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono border"
+               style="background: var(--surface); border-color: var(--border); color: var(--accent);">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background: var(--accent);"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2" style="background: var(--accent);"></span>
+            </span>
+            <span>Data &amp; AI Developer • Based in Lebanon</span>
+          </div>
+
+          <div class="space-y-2">
+            <p class="text-sm font-mono uppercase tracking-widest" style="color: var(--accent);">Hi, I'm</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Marie-Joe Chehade
+              <span class="block sm:inline text-2xl sm:text-3xl font-normal mt-1 sm:mt-0" style="color: var(--muted);">(Jowi)</span>
+            </h1>
+          </div>
+
+          <!-- Animated Typewriter Role -->
+          <div class="flex items-center gap-2 text-base sm:text-lg font-mono py-1" style="color: var(--accent);">
+            <i data-lucide="terminal" class="w-5 h-5 shrink-0"></i>
+            <span id="typewriter-text">Data Analyst &amp; AI Developer</span><span class="cursor-blink"></span>
+          </div>
+
+          <!-- Original Tagline -->
+          <p class="text-base sm:text-lg leading-relaxed max-w-xl" style="color: var(--muted);">
+            Data Analyst &amp; AI Developer building practical tools that turn messy data into useful systems.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="pt-2 flex flex-wrap items-center gap-3.5">
+            <a href="#projects"
+               class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-[1.03] shadow-lg"
+               style="background: var(--accent); color: var(--accent-ink);">
+              <span>See my work</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#pipeline-demo"
+               class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm border transition-all duration-300 hover:border-teal-400"
+               style="background: var(--surface); border-color: var(--border); color: var(--text);">
+              <i data-lucide="sparkles" class="w-4 h-4" style="color: var(--accent);"></i>
+              <span>Run AI Pipeline Demo</span>
+            </a>
+            <a href="#contact"
+               class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm border transition-all duration-300 hover:border-teal-400"
+               style="border-color: var(--border); color: var(--muted);">
+              <span>Get in touch</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Animated Data & AI Pipeline Visualizer Card -->
+        <div class="lg:col-span-5">
+          <div class="theme-card rounded-2xl p-5 relative overflow-hidden">
+            <!-- Top Terminal Bar -->
+            <div class="flex items-center justify-between pb-3.5 mb-4 border-b" style="border-color: var(--border);">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-400/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-400/80"></span>
+                <span class="ml-2 text-xs font-mono" style="color: var(--muted);">jowi_ai_pipeline.py</span>
+              </div>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded-full border"
+                    style="border-color: var(--accent); color: var(--accent);">
+                LIVE FLOW
+              </span>
+            </div>
+
+            <!-- Interactive Flow Diagram -->
+            <div class="space-y-3">
+              <!-- Stage 1: Messy Inputs -->
+              <div class="p-3 rounded-xl border flex items-center justify-between"
+                   style="background: var(--surface-elevated); border-color: var(--border);">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg flex items-center justify-center bg-amber-500/10 text-amber-400">
+                    <i data-lucide="file-scan" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-mono uppercase" style="color: var(--muted);">1. Raw Unstructured Input</div>
+                    <div id="hero-stage-input" class="text-sm font-semibold">Lebanese Medical Admission Form</div>
+                  </div>
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400">PDF / Scan</span>
+              </div>
+
+              <!-- Animated Connector -->
+              <div class="flex justify-center items-center py-0.5">
+                <svg width="24" height="26" viewBox="0 0 24 26" fill="none">
+                  <line x1="12" y1="0" x2="12" y2="26" stroke="var(--accent)" stroke-width="2" class="animated-stream"/>
+                </svg>
+              </div>
+
+              <!-- Stage 2: AI Vision & Python Engine -->
+              <div class="p-3.5 rounded-xl border relative overflow-hidden"
+                   style="background: var(--surface-elevated); border-color: var(--accent);">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                         style="background: var(--accent-glow); color: var(--accent);">
+                      <i data-lucide="cpu" class="w-4 h-4 animate-spin" style="animation-duration: 8s;"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-mono" style="color: var(--accent);">2. AI Vision + OCR Engine</div>
+                      <div class="text-xs" style="color: var(--muted);">Checkbox Detection • Provider &amp; Date Fix</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Mini live metrics bar -->
+                <div class="grid grid-cols-3 gap-2 pt-2 border-t text-center font-mono text-[11px]" style="border-color: var(--border);">
+                  <div class="p-1.5 rounded" style="background: var(--surface);">
+                    <span class="block text-[10px]" style="color: var(--muted);">CHECKBOXES</span>
+                    <span class="font-semibold text-emerald-400">✓ Detected</span>
+                  </div>
+                  <div class="p-1.5 rounded" style="background: var(--surface);">
+                    <span class="block text-[10px]" style="color: var(--muted);">DATES</span>
+                    <span class="font-semibold text-sky-400">ISO Fixed</span>
+                  </div>
+                  <div class="p-1.5 rounded" style="background: var(--surface);">
+                    <span class="block text-[10px]" style="color: var(--muted);">ENGINE</span>
+                    <span class="font-semibold" style="color: var(--accent);">LLM + OCR</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Animated Connector -->
+              <div class="flex justify-center items-center py-0.5">
+                <svg width="24" height="26" viewBox="0 0 24 26" fill="none">
+                  <line x1="12" y1="0" x2="12" y2="26" stroke="var(--accent)" stroke-width="2" class="animated-stream"/>
+                </svg>
+              </div>
+
+              <!-- Stage 3: Clean Structured Output -->
+              <div class="p-3 rounded-xl border flex items-center justify-between"
+                   style="background: var(--surface-elevated); border-color: var(--border);">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg flex items-center justify-center bg-emerald-500/10 text-emerald-400">
+                    <i data-lucide="sheet" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-mono uppercase" style="color: var(--muted);">3. Clean Structured System</div>
+                    <div class="text-sm font-semibold">Excel (<code class="font-mono text-xs" style="color: var(--accent);">openpyxl</code>) &amp; TPA Pipeline</div>
+                  </div>
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">.xlsx Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        I'm a Computer Science graduate from Antonine University, based in Lebanon. I work at Mednet,
-        a Third Party Administrator (TPA) insurance company, as a Data Analyst and AI Developer,
-        where I build data pipelines and AI-powered tools for healthcare and insurance workflows.
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="py-12 scroll-mt-20 reveal">
+      <h2 class="section-title text-2xl sm:text-3xl font-bold mb-6">About</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Main Narrative from Original Portfolio -->
+        <div class="lg:col-span-7 theme-card rounded-2xl p-6 sm:p-7 space-y-4 leading-relaxed">
+          <p class="text-base sm:text-lg" style="color: var(--text);">
+            I'm a Computer Science graduate from <strong>Antonine University</strong>, based in Lebanon. I work at <strong>Mednet</strong>,
+            a Third Party Administrator (TPA) insurance company, as a <strong>Data Analyst and AI Developer</strong>,
+            where I build data pipelines and AI-powered tools for healthcare and insurance workflows.
+          </p>
+          <p class="text-base" style="color: var(--muted);">
+            Outside of work, I volunteer with the <strong>Saint Paul Charity Mission</strong>, creating training and
+            session materials for youth groups, and I enjoy teaching and sharing what I learn.
+          </p>
+
+          <!-- Key Pillars Badges -->
+          <div class="pt-3 flex flex-wrap gap-2.5">
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border"
+                  style="background: var(--surface-elevated); border-color: var(--border);">
+              <i data-lucide="heart-pulse" class="w-3.5 h-3.5" style="color: var(--accent);"></i>
+              Healthcare &amp; TPA Insurance AI
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border"
+                  style="background: var(--surface-elevated); border-color: var(--border);">
+              <i data-lucide="layers" class="w-3.5 h-3.5" style="color: var(--accent);"></i>
+              Full-Stack Laravel &amp; React
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border"
+                  style="background: var(--surface-elevated); border-color: var(--border);">
+              <i data-lucide="graduation-cap" class="w-3.5 h-3.5" style="color: var(--accent);"></i>
+              Tech Trainer &amp; Volunteer
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: Animated Developer Profile Metrics -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+          <div class="theme-card rounded-2xl p-5 flex flex-col justify-between">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                 style="background: var(--accent-glow); color: var(--accent);">
+              <i data-lucide="scan-text" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold font-mono" style="color: var(--text);">AI &amp; OCR</div>
+              <p class="text-xs mt-1" style="color: var(--muted);">Automated extraction for complex Lebanese medical forms</p>
+            </div>
+          </div>
+
+          <div class="theme-card rounded-2xl p-5 flex flex-col justify-between">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                 style="background: var(--accent-glow); color: var(--accent);">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold font-mono" style="color: var(--text);">Pipelines</div>
+              <p class="text-xs mt-1" style="color: var(--muted);">Python &amp; Excel reporting workflows at Mednet TPA</p>
+            </div>
+          </div>
+
+          <div class="theme-card rounded-2xl p-5 flex flex-col justify-between">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                 style="background: var(--accent-glow); color: var(--accent);">
+              <i data-lucide="code-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold font-mono" style="color: var(--text);">Full-Stack</div>
+              <p class="text-xs mt-1" style="color: var(--muted);">Modular insurance architectures in Laravel 10 &amp; React</p>
+            </div>
+          </div>
+
+          <div class="theme-card rounded-2xl p-5 flex flex-col justify-between">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                 style="background: var(--accent-glow); color: var(--accent);">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold font-mono" style="color: var(--text);">Mentorship</div>
+              <p class="text-xs mt-1" style="color: var(--muted);">Python curriculum at MDSF Tech Academy &amp; youth missions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== INTERACTIVE AI EXTRACTION SIMULATOR ==================== -->
+    <section id="pipeline-demo" class="py-12 scroll-mt-20 reveal">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider" style="color: var(--accent);">Interactive Showcase</span>
+          <h2 class="section-title text-2xl sm:text-3xl font-bold mt-1">Messy Data &rarr; Structured System</h2>
+        </div>
+        <p class="text-xs sm:text-sm max-w-md" style="color: var(--muted);">
+          Click a sample healthcare workflow below to see how my Python &amp; AI Vision pipelines parse unstructured documents into clean Excel outputs.
+        </p>
+      </div>
+
+      <div class="theme-card rounded-2xl p-5 sm:p-7">
+        <!-- Sample Selector Tabs -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b" style="border-color: var(--border);">
+          <div class="flex flex-wrap gap-2" role="tablist">
+            <button type="button" data-sample="admission"
+                    class="sample-tab active-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-semibold transition-all flex items-center gap-2"
+                    style="background: var(--accent); color: var(--accent-ink);">
+              <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+              <span>1. Medical Admission Form</span>
+            </button>
+            <button type="button" data-sample="checkbox"
+                    class="sample-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-semibold border transition-all flex items-center gap-2"
+                    style="background: var(--surface-elevated); border-color: var(--border); color: var(--muted);">
+              <i data-lucide="check-square" class="w-4 h-4"></i>
+              <span>2. Checkbox &amp; Date Normalization</span>
+            </button>
+            <button type="button" data-sample="lob"
+                    class="sample-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-semibold border transition-all flex items-center gap-2"
+                    style="background: var(--surface-elevated); border-color: var(--border); color: var(--muted);">
+              <i data-lucide="building-2" class="w-4 h-4"></i>
+              <span>3. Insurance LOB Routing</span>
+            </button>
+          </div>
+
+          <button id="rescan-btn" type="button"
+                  class="px-3.5 py-2 rounded-xl text-xs font-mono border flex items-center gap-1.5 hover:border-teal-400 transition-all"
+                  style="background: var(--surface-elevated); border-color: var(--border); color: var(--accent);">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Re-run Extraction</span>
+          </button>
+        </div>
+
+        <!-- Split View: Raw Unstructured Input vs. Structured Output -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          <!-- Left: Simulated Messy Document Input with Laser Scanner -->
+          <div class="lg:col-span-5 rounded-xl border p-4 relative overflow-hidden flex flex-col justify-between"
+               style="background: var(--surface-elevated); border-color: var(--border);">
+            <div class="ocr-scan-beam" id="demo-scan-beam"></div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono pb-3 mb-3 border-b" style="border-color: var(--border); color: var(--muted);">
+                <span id="demo-doc-title">RAW_SCAN: ADMISSION_LB_042.JPG</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400">Noisy Input</span>
+              </div>
+
+              <!-- Simulated Messy Document Content -->
+              <div id="demo-raw-content" class="space-y-3 font-mono text-xs leading-relaxed">
+                <!-- Populated dynamically by JS -->
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3 border-t flex items-center justify-between text-[11px] font-mono" style="border-color: var(--border); color: var(--muted);">
+              <span>Vision API + Python Parser</span>
+              <span id="demo-confidence" class="text-emerald-400 font-semibold">Confidence: 99.2%</span>
+            </div>
+          </div>
+
+          <!-- Center Arrow Indicator -->
+          <div class="lg:col-span-2 flex lg:flex-col items-center justify-center gap-2 py-2">
+            <div class="w-12 h-12 rounded-2xl border flex items-center justify-center shadow-md"
+                 style="background: var(--surface-elevated); border-color: var(--accent); color: var(--accent);">
+              <i data-lucide="wand-2" class="w-5 h-5"></i>
+            </div>
+            <span class="text-[11px] font-mono text-center" style="color: var(--accent);">AI Vision +<br>openpyxl</span>
+          </div>
+
+          <!-- Right: Structured Output Table / JSON -->
+          <div class="lg:col-span-5 rounded-xl border p-4 flex flex-col justify-between"
+               style="background: var(--surface-elevated); border-color: var(--border);">
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono pb-3 mb-3 border-b" style="border-color: var(--border); color: var(--muted);">
+                <span id="demo-out-title">OUTPUT: structured_admissions.xlsx</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Clean Schema</span>
+              </div>
+
+              <!-- Structured Table Output -->
+              <div id="demo-structured-output" class="space-y-2.5 font-mono text-xs">
+                <!-- Populated dynamically by JS -->
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3 border-t flex items-center justify-between text-[11px] font-mono" style="border-color: var(--border); color: var(--muted);">
+              <span>Status: Validated &amp; Exported</span>
+              <span style="color: var(--accent);">0 Manual Edits Needed</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS SECTION ==================== -->
+    <section id="skills" class="py-12 scroll-mt-20 reveal">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+        <div>
+          <h2 class="section-title text-2xl sm:text-3xl font-bold">Skills</h2>
+        </div>
+        <!-- Skill Highlight Filter -->
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <button type="button" data-skill-filter="all" class="skill-filter-btn px-3 py-1.5 rounded-full border transition-all"
+                  style="background: var(--accent); color: var(--accent-ink); border-color: var(--accent);">
+            All Domains
+          </button>
+          <button type="button" data-skill-filter="data-ai" class="skill-filter-btn px-3 py-1.5 rounded-full border transition-all"
+                  style="background: var(--surface); color: var(--muted); border-color: var(--border);">
+            Data &amp; AI
+          </button>
+          <button type="button" data-skill-filter="web" class="skill-filter-btn px-3 py-1.5 rounded-full border transition-all"
+                  style="background: var(--surface); color: var(--muted); border-color: var(--border);">
+            Web Development
+          </button>
+          <button type="button" data-skill-filter="foundations" class="skill-filter-btn px-3 py-1.5 rounded-full border transition-all"
+                  style="background: var(--surface); color: var(--muted); border-color: var(--border);">
+            Foundations
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        
+        <!-- Card 1: Data & AI -->
+        <div class="theme-card rounded-2xl p-6 skill-card" data-category="data-ai">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold">Data &amp; AI</h3>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--accent);">Core</span>
+          </div>
+          <p class="text-xs mb-4" style="color: var(--muted);">
+            Intelligent document processing, automated ETL workflows, and production LLM integrations.
+          </p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Python</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Data pipelines</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">OCR &amp; document extraction</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">LLM APIs</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Excel reporting</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: Web Development -->
+        <div class="theme-card rounded-2xl p-6 skill-card" data-category="web">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold">Web Development</h3>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Full-Stack</span>
+          </div>
+          <p class="text-xs mb-4" style="color: var(--muted);">
+            Modular backend architectures, relational database design, and responsive frontend interfaces.
+          </p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Laravel 10 (PHP)</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">React</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">MySQL</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">HTML / CSS / JS</li>
+          </ul>
+        </div>
+
+        <!-- Card 3: Foundations -->
+        <div class="theme-card rounded-2xl p-6 skill-card" data-category="foundations">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="binary" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold">Foundations</h3>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">CS Core</span>
+          </div>
+          <p class="text-xs mb-4" style="color: var(--muted);">
+            Strong computer science fundamentals from Antonine University powering scalable engineering.
+          </p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Data structures</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Algorithms</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Computer networks</li>
+            <li class="text-xs font-mono px-3 py-1.5 rounded-full border transition-all hover:border-teal-400" style="background: var(--surface-elevated); border-color: var(--border);">Compiler theory</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section id="projects" class="py-12 scroll-mt-20 reveal">
+      <h2 class="section-title text-2xl sm:text-3xl font-bold mb-6">Projects</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Project 1: Medical Admission Form Extraction -->
+        <article class="theme-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="file-Spreadsheet" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-mono px-2.5 py-1 rounded-full bg-teal-500/10" style="color: var(--accent);">
+                AI Vision Pipeline
+              </span>
+            </div>
+
+            <h3 class="text-lg font-bold mb-2 group-hover:text-teal-400 transition-colors">
+              Medical Admission Form Extraction
+            </h3>
+            <p class="text-sm leading-relaxed mb-5" style="color: var(--muted);">
+              A Python pipeline that uses an AI vision API to read Lebanese medical admission forms and output clean, structured Excel files, with checkbox detection, provider extraction and date correction.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <ul class="flex flex-wrap gap-1.5">
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Python</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">OCR</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">LLM API</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">openpyxl</li>
+            </ul>
+
+            <a href="#pipeline-demo"
+               class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold hover:underline"
+               style="color: var(--accent);">
+              <span>Inspect live extraction flow</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2: Insurance Management System -->
+        <article class="theme-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-mono px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400">
+                Modular Full-Stack
+              </span>
+            </div>
+
+            <h3 class="text-lg font-bold mb-2 group-hover:text-teal-400 transition-colors">
+              Insurance Management System
+            </h3>
+            <p class="text-sm leading-relaxed mb-5" style="color: var(--muted);">
+              A full-stack platform for managing insurance operations, built with a modular architecture of separate lines of business.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <ul class="flex flex-wrap gap-1.5">
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Laravel</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">React</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">MySQL</li>
+            </ul>
+
+            <button type="button" data-sample="lob"
+               class="jump-to-lob inline-flex items-center gap-1.5 text-xs font-mono font-semibold hover:underline"
+               style="color: var(--accent);">
+              <span>Preview modular LOB routing</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 3: Python Training Program -->
+        <article class="theme-card rounded-2xl p-6 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                   style="background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="book-open-check" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-mono px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-400">
+                EdTech &amp; Automation
+              </span>
+            </div>
+
+            <h3 class="text-lg font-bold mb-2 group-hover:text-teal-400 transition-colors">
+              Python Training Program
+            </h3>
+            <p class="text-sm leading-relaxed mb-5" style="color: var(--muted);">
+              Session content, quizzes and homework systems created for Python training sessions at MDSF Tech Academy.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <ul class="flex flex-wrap gap-1.5">
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Teaching</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Python</li>
+              <li class="text-xs font-mono px-2.5 py-1 rounded-full border" style="border-color: var(--border); color: var(--muted);">Apps Script</li>
+            </ul>
+
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono" style="color: var(--muted);">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>MDSF Tech Academy Curriculum</span>
+            </span>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="italic text-sm mt-5 flex items-center gap-2" style="color: var(--muted);">
+        <span class="w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+        More projects coming soon.
       </p>
-      <p>
-        Outside of work, I volunteer with the Saint Paul Charity Mission, creating training and
-        session materials for youth groups, and I enjoy teaching and sharing what I learn.
-      </p>
     </section>
 
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Data &amp; AI</h3>
-          <ul class="tags">
-            <li>Python</li><li>Data pipelines</li><li>OCR &amp; document extraction</li><li>LLM APIs</li><li>Excel reporting</li>
-          </ul>
+    <!-- ==================== EXPERIENCE & EDUCATION SECTION ==================== -->
+    <section id="experience" class="py-12 scroll-mt-20 reveal">
+      <h2 class="section-title text-2xl sm:text-3xl font-bold mb-8">Experience &amp; Education</h2>
+
+      <div class="relative pl-6 sm:pl-8 border-l-2 space-y-8" style="border-color: var(--border);">
+        
+        <!-- Item 1 -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+                style="background: var(--accent); border-color: var(--bg);"></span>
+          <div class="theme-card rounded-2xl p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <h3 class="text-base sm:text-lg font-bold">Data Analyst &amp; AI Developer</h3>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-teal-500/10" style="color: var(--accent);">Current Role</span>
+            </div>
+            <p class="text-sm font-mono mb-2" style="color: var(--accent);">Mednet (TPA Insurance)</p>
+            <p class="text-sm" style="color: var(--muted);">
+              Building data pipelines, AI extraction tools and reporting for insurance operations.
+            </p>
+          </div>
         </div>
-        <div class="card">
-          <h3>Web Development</h3>
-          <ul class="tags">
-            <li>Laravel 10 (PHP)</li><li>React</li><li>MySQL</li><li>HTML / CSS / JS</li>
-          </ul>
+
+        <!-- Item 2 -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+                style="background: var(--accent); border-color: var(--bg);"></span>
+          <div class="theme-card rounded-2xl p-5">
+            <h3 class="text-base sm:text-lg font-bold">Trainer &amp; Content Creator</h3>
+            <p class="text-sm font-mono mb-2" style="color: var(--accent);">MDSF Tech Academy</p>
+            <p class="text-sm" style="color: var(--muted);">
+              Designed training sessions, quizzes and learning materials for professional learners.
+            </p>
+          </div>
         </div>
-        <div class="card">
-          <h3>Foundations</h3>
-          <ul class="tags">
-            <li>Data structures</li><li>Algorithms</li><li>Computer networks</li><li>Compiler theory</li>
-          </ul>
+
+        <!-- Item 3 -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+                style="background: var(--accent); border-color: var(--bg);"></span>
+          <div class="theme-card rounded-2xl p-5">
+            <h3 class="text-base sm:text-lg font-bold">Backend Developer (Intern)</h3>
+            <p class="text-sm font-mono mb-2" style="color: var(--accent);">Amedaz S.A.L</p>
+            <p class="text-sm" style="color: var(--muted);">
+              Backend development work as part of an internship.
+            </p>
+          </div>
         </div>
+
+        <!-- Item 4 -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+                style="background: var(--accent); border-color: var(--bg);"></span>
+          <div class="theme-card rounded-2xl p-5">
+            <h3 class="text-base sm:text-lg font-bold">IT Intern</h3>
+            <p class="text-sm font-mono mb-2" style="color: var(--accent);">Daher International Food Company</p>
+            <p class="text-sm" style="color: var(--muted);">
+              IT internship experience in a food industry company.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="relative group">
+          <span class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+                style="background: var(--accent); border-color: var(--bg);"></span>
+          <div class="theme-card rounded-2xl p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <h3 class="text-base sm:text-lg font-bold">B.S. in Computer Science</h3>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded-full border" style="border-color: var(--border); color: var(--muted);">Education</span>
+            </div>
+            <p class="text-sm font-mono mb-2" style="color: var(--accent);">Antonine University (Université Antonine), Lebanon</p>
+            <p class="text-sm" style="color: var(--muted);">
+              Certifications from Zaka.ai and Coursera.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Medical Admission Form Extraction</h3>
-          <p>A Python pipeline that uses an AI vision API to read Lebanese medical admission forms and output clean, structured Excel files, with checkbox detection, provider extraction and date correction.</p>
-          <ul class="tags"><li>Python</li><li>OCR</li><li>LLM API</li><li>openpyxl</li></ul>
-        </article>
-        <article class="card">
-          <h3>Insurance Management System</h3>
-          <p>A full-stack platform for managing insurance operations, built with a modular architecture of separate lines of business.</p>
-          <ul class="tags"><li>Laravel</li><li>React</li><li>MySQL</li></ul>
-        </article>
-        <article class="card">
-          <h3>Python Training Program</h3>
-          <p>Session content, quizzes and homework systems created for Python training sessions at MDSF Tech Academy.</p>
-          <ul class="tags"><li>Teaching</li><li>Python</li><li>Apps Script</li></ul>
-        </article>
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="py-12 scroll-mt-20 reveal">
+      <div class="theme-card rounded-3xl p-7 sm:p-10 relative overflow-hidden">
+        <div class="max-w-2xl space-y-4">
+          <h2 class="section-title text-2xl sm:text-3xl font-bold">Contact</h2>
+          <p class="text-base sm:text-lg" style="color: var(--muted);">
+            Want to work together or just say hi? Reach out.
+          </p>
+
+          <ul class="pt-3 flex flex-wrap items-center gap-3.5">
+            <li>
+              <a href="mailto:your.email@example.com"
+                 class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                 style="background: var(--accent); color: var(--accent-ink);">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+                <span>your.email@example.com</span>
+              </a>
+            </li>
+            <li>
+              <button id="copy-email-btn" type="button" data-email="your.email@example.com"
+                      class="inline-flex items-center gap-2 px-4 py-3 rounded-full font-mono text-xs border transition-all hover:border-teal-400"
+                      style="background: var(--surface-elevated); border-color: var(--border); color: var(--text);">
+                <i data-lucide="copy" class="w-3.5 h-3.5" style="color: var(--accent);"></i>
+                <span id="copy-email-label">Copy Email</span>
+              </button>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm border transition-all hover:border-teal-400"
+                 style="background: var(--surface-elevated); border-color: var(--border); color: var(--text);">
+                <i data-lucide="linkedin" class="w-4 h-4" style="color: var(--accent);"></i>
+                <span>LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/your-username" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm border transition-all hover:border-teal-400"
+                 style="background: var(--surface-elevated); border-color: var(--border); color: var(--text);">
+                <i data-lucide="github" class="w-4 h-4" style="color: var(--accent);"></i>
+                <span>GitHub</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <p class="note">More projects coming soon.</p>
-    </section>
-
-    <section id="experience">
-      <h2>Experience &amp; Education</h2>
-      <ol class="timeline">
-        <li>
-          <h3>Data Analyst &amp; AI Developer</h3>
-          <p class="meta">Mednet (TPA Insurance)</p>
-          <p>Building data pipelines, AI extraction tools and reporting for insurance operations.</p>
-        </li>
-        <li>
-          <h3>Trainer &amp; Content Creator</h3>
-          <p class="meta">MDSF Tech Academy</p>
-          <p>Designed training sessions, quizzes and learning materials for professional learners.</p>
-        </li>
-        <li>
-          <h3>Backend Developer (Intern)</h3>
-          <p class="meta">Amedaz S.A.L</p>
-          <p>Backend development work as part of an internship.</p>
-        </li>
-        <li>
-          <h3>IT Intern</h3>
-          <p class="meta">Daher International Food Company</p>
-          <p>IT internship experience in a food industry company.</p>
-        </li>
-        <li>
-          <h3>B.S. in Computer Science</h3>
-          <p class="meta">Antonine University (Université Antonine), Lebanon</p>
-          <p>Certifications from Zaka.ai and Coursera.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Want to work together or just say hi? Reach out.</p>
-      <ul class="links">
-        <li><a href="mailto:your.email@example.com">your.email@example.com</a></li>
-        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a></li>
-      </ul>
     </section>
 
   </main>
 
-  <footer>
-    <p>&copy; <span id="year"></span> Marie-Joe Chehade. Built with plain HTML &amp; CSS.</p>
+  <!-- Footer -->
+  <footer class="relative z-10 mt-12 border-t py-8 text-center text-sm"
+          style="border-color: var(--border); color: var(--muted);">
+    <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>&copy; <span id="year"></span> Marie-Joe Chehade. Built with HTML, CSS &amp; Interactive Canvas.</p>
+      <p class="font-mono text-xs" style="color: var(--accent);">Data Analyst &amp; AI Developer • Lebanon</p>
+    </div>
   </footer>
 
+  <!-- ==================== SCRIPTS ==================== -->
   <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Dynamic Footer Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ==================== 1. THEME TOGGLE (DARK / LIGHT) ====================
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('theme-icon-sun');
+    const moonIcon = document.getElementById('theme-icon-moon');
+
+    function syncThemeIcons() {
+      const isDark = htmlEl.classList.contains('dark');
+      if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
+    syncThemeIcons();
+
+    themeToggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('dark');
+      syncThemeIcons();
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // ==================== 2. TYPEWRITER ROLE ANIMATION ====================
+    const roles = [
+      "Data Analyst & AI Developer",
+      "OCR & Document Extraction Builder",
+      "Python & Data Pipeline Architect",
+      "Healthcare & TPA AI Specialist"
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typewriterEl = document.getElementById('typewriter-text');
+
+    function runTypewriter() {
+      const currentRole = roles[roleIdx];
+      if (isDeleting) {
+        charIdx--;
+      } else {
+        charIdx++;
+      }
+
+      typewriterEl.textContent = currentRole.substring(0, charIdx);
+
+      let speed = isDeleting ? 35 : 70;
+
+      if (!isDeleting && charIdx === currentRole.length) {
+        speed = 2200; // Pause at full phrase
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        speed = 350;
+      }
+
+      setTimeout(runTypewriter, speed);
+    }
+    setTimeout(runTypewriter, 1500);
+
+    // ==================== 3. INTERACTIVE AI PIPELINE SIMULATOR ====================
+    const pipelineSamples = {
+      admission: {
+        docTitle: "RAW_SCAN: ADMISSION_FORM_LB.JPG",
+        outTitle: "OUTPUT: medical_admissions.xlsx (openpyxl)",
+        confidence: "Confidence: 99.4%",
+        rawHTML: `
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">HOSPITAL / PROVIDER (Handwritten + Stamp):</div>
+            <div class="font-semibold text-amber-400">"Hôtel-Dieu de France - Beyrouth"</div>
+          </div>
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">ADMISSION TYPE CHECKBOXES:</div>
+            <div>[✓] Inpatient &nbsp;&nbsp; [ ] Day Case &nbsp;&nbsp; [✓] Emergency</div>
+          </div>
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">RAW OCR DATE STRING:</div>
+            <div class="text-rose-400 line-through">"14 / O3 / 2O26" (OCR O/0 noise)</div>
+          </div>
+        `,
+        structuredHTML: `
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">provider_name:</span>
+            <span class="col-span-2 font-semibold" style="color: var(--text);">Hôtel-Dieu de France</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">checkbox_flags:</span>
+            <span class="col-span-2 text-emerald-400">["INPATIENT", "EMERGENCY"]</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">admission_date:</span>
+            <span class="col-span-2 text-sky-400 font-semibold">2026-03-14 (Corrected ISO)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">excel_export:</span>
+            <span class="col-span-2" style="color: var(--accent);">Row #42 appended via openpyxl</span>
+          </div>
+        `
+      },
+      checkbox: {
+        docTitle: "RAW_SCAN: CLAIM_CHECKLIST_09.PDF",
+        outTitle: "OUTPUT: validated_claims.xlsx",
+        confidence: "Confidence: 98.9%",
+        rawHTML: `
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">SCANNED FORM CHECKBOX MATRIX:</div>
+            <div>[X] Chronic Care &nbsp; [ ] Maternity &nbsp; [✓] Lab Work</div>
+          </div>
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">AMBIGUOUS HANDWRITTEN DATE:</div>
+            <div class="text-amber-400">"22-10-26" &rarr; Disambiguated via Policy Period</div>
+          </div>
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">PROVIDER CODE:</div>
+            <div>"MED-LB-8841"</div>
+          </div>
+        `,
+        structuredHTML: `
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">chronic_flag:</span>
+            <span class="col-span-2 text-emerald-400">True (Checkbox [X] parsed)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">lab_work_flag:</span>
+            <span class="col-span-2 text-emerald-400">True (Checkbox [✓] parsed)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">service_date:</span>
+            <span class="col-span-2 text-sky-400 font-semibold">2026-10-22</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">provider_id:</span>
+            <span class="col-span-2" style="color: var(--accent);">MED-LB-8841 (Verified)</span>
+          </div>
+        `
+      },
+      lob: {
+        docTitle: "INPUT: MODULAR_INSURANCE_LOB_PAYLOAD",
+        outTitle: "OUTPUT: Laravel 10 + React + MySQL State",
+        confidence: "Architecture: Modular LOB",
+        rawHTML: `
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">INCOMING POLICY OPERATION:</div>
+            <div class="font-semibold" style="color: var(--accent);">Line of Business: Medical / Motor / Life</div>
+          </div>
+          <div class="p-2.5 rounded border border-dashed" style="border-color: var(--border);">
+            <div class="text-[11px]" style="color: var(--muted);">REQUIREMENT:</div>
+            <div>Isolated business rules, dedicated tables &amp; React views per LOB module.</div>
+          </div>
+        `,
+        structuredHTML: `
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">backend_module:</span>
+            <span class="col-span-2 text-emerald-400">Laravel 10 Service Provider</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">frontend_view:</span>
+            <span class="col-span-2 text-sky-400">Dynamic React LOB Dashboard</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 p-2 rounded" style="background: var(--surface);">
+            <span style="color: var(--muted);">database_layer:</span>
+            <span class="col-span-2" style="color: var(--accent);">MySQL Normalized Schema</span>
+          </div>
+        `
+      }
+    };
+
+    const sampleTabs = document.querySelectorAll('.sample-tab');
+    const docTitleEl = document.getElementById('demo-doc-title');
+    const outTitleEl = document.getElementById('demo-out-title');
+    const confidenceEl = document.getElementById('demo-confidence');
+    const rawContentEl = document.getElementById('demo-raw-content');
+    const structuredOutputEl = document.getElementById('demo-structured-output');
+    const rescanBtn = document.getElementById('rescan-btn');
+
+    let currentSampleKey = 'admission';
+
+    function renderPipelineSample(key) {
+      currentSampleKey = key;
+      const data = pipelineSamples[key];
+      docTitleEl.textContent = data.docTitle;
+      outTitleEl.textContent = data.outTitle;
+      confidenceEl.textContent = data.confidence;
+      rawContentEl.innerHTML = data.rawHTML;
+
+      // Brief shimmer effect on output
+      structuredOutputEl.style.opacity = '0.25';
+      setTimeout(() => {
+        structuredOutputEl.innerHTML = data.structuredHTML;
+        structuredOutputEl.style.opacity = '1';
+      }, 180);
+
+      // Update tab button styles
+      sampleTabs.forEach(btn => {
+        if (btn.dataset.sample === key) {
+          btn.style.background = 'var(--accent)';
+          btn.style.color = 'var(--accent-ink)';
+          btn.style.borderColor = 'var(--accent)';
+        } else {
+          btn.style.background = 'var(--surface-elevated)';
+          btn.style.color = 'var(--muted)';
+          btn.style.borderColor = 'var(--border)';
+        }
+      });
+    }
+
+    sampleTabs.forEach(btn => {
+      btn.addEventListener('click', () => renderPipelineSample(btn.dataset.sample));
+    });
+
+    rescanBtn.addEventListener('click', () => renderPipelineSample(currentSampleKey));
+
+    // Allow "Preview modular LOB routing" button in Projects to jump and activate LOB tab
+    document.querySelectorAll('.jump-to-lob').forEach(btn => {
+      btn.addEventListener('click', () => {
+        renderPipelineSample('lob');
+        document.getElementById('pipeline-demo').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Initialize default sample
+    renderPipelineSample('admission');
+
+    // ==================== 4. SKILL CATEGORY FILTER ====================
+    const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    skillFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.skillFilter;
+
+        skillFilterBtns.forEach(b => {
+          if (b === btn) {
+            b.style.background = 'var(--accent)';
+            b.style.color = 'var(--accent-ink)';
+            b.style.borderColor = 'var(--accent)';
+          } else {
+            b.style.background = 'var(--surface)';
+            b.style.color = 'var(--muted)';
+            b.style.borderColor = 'var(--border)';
+          }
+        });
+
+        skillCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          } else {
+            card.style.opacity = '0.35';
+            card.style.transform = 'scale(0.97)';
+          }
+        });
+      });
+    });
+
+    // ==================== 5. COPY EMAIL BUTTON ====================
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const copyEmailLabel = document.getElementById('copy-email-label');
+
+    copyEmailBtn.addEventListener('click', () => {
+      const email = copyEmailBtn.dataset.email;
+      const tempInput = document.createElement('textarea');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      copyEmailLabel.textContent = 'Copied!';
+      setTimeout(() => {
+        copyEmailLabel.textContent = 'Copy Email';
+      }, 2000);
+    });
+
+    // ==================== 6. SCROLL REVEAL OBSERVER ====================
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ==================== 7. INTERACTIVE NEURAL / DATA CANVAS ====================
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    let mouse = { x: -1000, y: -1000 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initNodes();
+    }
+
+    function initNodes() {
+      const count = Math.min(Math.floor((canvas.width * canvas.height) / 22000), 55);
+      nodes = [];
+      for (let i = 0; i < count; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          radius: Math.random() * 1.8 + 1
+        });
+      }
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const isDark = htmlEl.classList.contains('dark');
+      const nodeColor = isDark ? 'rgba(79, 209, 197, 0.45)' : 'rgba(15, 157, 143, 0.35)';
+
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+        // Draw node
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = nodeColor;
+        ctx.fill();
+
+        // Connect nearby nodes
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n2 = nodes[j];
+          const dx = n.x - n2.x;
+          const dy = n.y - n2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 135) {
+            const alpha = (1 - dist / 135) * (isDark ? 0.16 : 0.12);
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = isDark
+              ? `rgba(79, 209, 197, ${alpha})`
+              : `rgba(15, 157, 143, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        // Subtle connection to mouse cursor
+        const mdx = n.x - mouse.x;
+        const mdy = n.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < 160) {
+          const mAlpha = (1 - mDist / 160) * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = isDark
+            ? `rgba(79, 209, 197, ${mAlpha})`
+            : `rgba(15, 157, 143, ${mAlpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(animateCanvas);
+    }
+
+    window.onload = function () {
+      resizeCanvas();
+      animateCanvas();
+    };
   </script>
 </body>
 </html>
